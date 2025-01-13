@@ -13,7 +13,8 @@ export const getPosts = async (req, res) => {
 //creating a new post
 export const createPost = async (req, res) => {
   try {
-    const { title, content, author } = req.body;
+    const { title, content } = req.body;
+    const author = req.userId.id;
     const newPost = new Post({
       title,
       content,

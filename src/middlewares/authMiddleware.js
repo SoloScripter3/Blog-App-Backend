@@ -7,7 +7,7 @@ export const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = decoded;
+    req.userId = decoded;
     next();
   } catch (err) {
     return res.status(500).json({ error: "Server error" });
