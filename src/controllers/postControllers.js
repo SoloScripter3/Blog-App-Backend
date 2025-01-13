@@ -20,7 +20,7 @@ export const createPost = async (req, res) => {
       author,
     });
     await newPost.save();
-    res.status(201).json(post);
+    res.status(201).json(newPost);
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
@@ -29,6 +29,7 @@ export const createPost = async (req, res) => {
 //updating the post by id
 export const updatePost = async (req, res) => {
   try {
+    console.log("checking");
     const { title, content } = req.body;
     const neededPost = await Post.findById(req.params.id);
     if (!neededPost) {
