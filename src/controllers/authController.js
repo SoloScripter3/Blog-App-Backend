@@ -1,7 +1,7 @@
-import * as bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import hashPassword from "../utils/hasher.js";
 import User from "../models/users.js";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
@@ -10,8 +10,9 @@ export const register = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
     }
+    console.log("checking");
     const hashedPassword = await hashPassword(password);
-    const newUser = newUser({
+    const newUser = new User({
       username,
       email,
       password: hashedPassword,
@@ -19,7 +20,7 @@ export const register = async (req, res) => {
     await newUser.save();
     res.status(201).json(newUser);
   } catch (err) {
-    return res.status(500).json({ error: "server error" });
+    return res.status(500).json({ error: err.message });
   }
 };
 

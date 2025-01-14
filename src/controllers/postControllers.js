@@ -3,7 +3,8 @@ import Post from "../models/posts.js";
 //getting all the posts
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("author", "username");
+    console.log(posts[0].author.username);
     res.status(200).json(posts);
   } catch (err) {
     return res.status(500).json({ error: "server error" });
@@ -43,7 +44,7 @@ export const updatePost = async (req, res) => {
     );
     res.status(200).json({ message: "post updated successfully" });
   } catch (err) {
-    return res.status(500).json({ error: "server error" });
+    return res.status(500).json({ error: err.message });
   }
 };
 

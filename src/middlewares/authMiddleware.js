@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const authMiddleware = async (req, res, next) => {
   try {
@@ -10,6 +10,6 @@ export const authMiddleware = async (req, res, next) => {
     req.userId = decoded;
     next();
   } catch (err) {
-    return res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: err.message });
   }
 };
