@@ -5,12 +5,13 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/postControllers.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 router.get("/", getPosts);
-router.post("/create", createPost);
-router.put("/update/:id", updatePost);
-router.delete("/delete/:id", deletePost);
+router.post("/create", authMiddleware, createPost);
+router.put("/update/:id", authMiddleware, updatePost);
+router.delete("/delete/:id", authMiddleware, deletePost);
 
 export default router;
